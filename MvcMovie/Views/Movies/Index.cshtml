@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MvcMovie.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<p>
+    Title: <input type="text" id="txtSearch" name="txtSearch" placeholder="Enter title..." />
+    <input type="submit" value="Search" id="btnSearch" />
+</p>
+
+<div id="tbl">
+    @await Html.PartialAsync("_Index", Model)
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#btnSearch").on("click", function () {
+                
+                var searchString = $("#txtSearch").val();
+                console.log(searchString);
+                $("#tbl").load("/Movies/Index1", { "searchString": searchString });
+            });
+
+        });
+    </script>
+}
